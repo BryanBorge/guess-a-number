@@ -1,19 +1,51 @@
-import React from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Button,
+  Keyboard,
+} from "react-native";
 import Card from "../components/Card";
+import Input from "../components/Input";
+import Colors from "../constants/colors";
+
 const StartGameScreen = props => {
+  const [enteredValue, setEnteredValue] = useState("");
+  const numberInputHandler = inputText => {
+    setEnteredValue(inputText.replace(/[^0-9]/g, ""));
+  };
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Start a new game</Text>
-      <Card style={styles.inputContainer}>
-        <Text>Select a number</Text>
-        <TextInput />
-        <View style={styles.buttonContainer}>
-          <Button title='Reset' />
-          <Button title='Confirm' />
-        </View>
-      </Card>
-    </View>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <View style={styles.screen}>
+        <Text style={styles.title}>Start a new game</Text>
+        <Card style={styles.inputContainer}>
+          <Text>Select a number</Text>
+          <Input
+            style={styles.input}
+            blurOnSubmit
+            autoCapitalize='none'
+            autoCorrect={false}
+            keyboardType='number-pad'
+            onChangeText={numberInputHandler}
+            maxLength={2}
+          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.button}>
+              <Button title='Reset' color={Colors.accent} />
+            </View>
+            <View style={styles.button}>
+              <Button title='Confirm' color={Colors.primary} />
+            </View>
+          </View>
+        </Card>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -28,11 +60,15 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
     alignItems: "center",
   },
+  input: {
+    width: 50,
+    textAlign: "center",
+  },
   title: {
     fontSize: 20,
     marginVertical: 10,
   },
-
+  button: { width: 100 },
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
