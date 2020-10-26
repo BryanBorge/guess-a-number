@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  Dimensions,
   FlatList,
 } from "react-native";
 import NumberContainer from "../components/NumberContainer";
@@ -74,6 +75,12 @@ const GameScreen = props => {
     setPastGuesses(curPastGuesses => [nextNum.toString(), ...curPastGuesses]);
   };
 
+  let listContainerStyle = styles.listContainer;
+
+  if (Dimensions.get("window").width > 300) {
+    listContainerStyle = styles.listContainerBig;
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={defaultStyles.title}>Opponents Guess</Text>
@@ -86,7 +93,7 @@ const GameScreen = props => {
           <Ionicons name='md-add' size={24} color='white' />
         </MainButton>
       </Card>
-      <View style={styles.listContainer}>
+      <View style={styles.listContainerStyle}>
         {/* <ScrollView contentContainerStyle={styles.list}>
           {pastGuesses.map((guess, index) =>
             renderListItem(guess, pastGuesses.length - index)
@@ -110,12 +117,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: 400,
     maxWidth: "90%",
-    marginTop: 20,
+    marginTop: Dimensions.get("window").height > 600 ? 20 : 5,
   },
   listContainer: {
     flex: 1,
-    width: "60%",
+    width: Dimensions.get("window").width > 350 ? "60%" : "80%",
   },
+  listContainerBig: { flex: 1, width: "80%" },
   list: {
     flexGrow: 1,
     justifyContent: "flex-end",
