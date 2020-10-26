@@ -9,7 +9,11 @@ const GameOverScreen = props => {
       <TitleText>Game is over</TitleText>
       <View style={styles.imageContainer}>
         <Image
-          source={require("../assets/success.png")}
+          //source={require("../assets/success.png")}
+          source={{
+            uri:
+              "https://upload.wikimedia.org/wikipedia/commons/8/88/Summit_of_the_Matterhorn.jpg",
+          }}
           style={styles.image}
           resizeMode='cover'
         />
