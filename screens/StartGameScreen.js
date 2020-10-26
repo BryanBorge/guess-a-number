@@ -7,6 +7,7 @@ import {
   Button,
   Keyboard,
   Alert,
+  Dimensions,
 } from "react-native";
 import Card from "../components/Card";
 import Input from "../components/Input";
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans-bold",
     marginVertical: 10,
   },
-  button: { width: 100 },
+  button: { width: Dimensions.get("window").width / 4 },
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
